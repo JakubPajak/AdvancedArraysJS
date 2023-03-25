@@ -158,4 +158,5 @@ btnLogin.addEventListener('click', function (e) {
     calcPrintBalance(currAccount.movements);
     calcDisplaySummary(currAccount);
   }
+  console.log('Tescik jak tam gites');
 });
