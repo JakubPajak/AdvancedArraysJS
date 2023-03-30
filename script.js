@@ -210,7 +210,6 @@ btnLoan.addEventListener('click', function (e) {
 });
 
 const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat);
 
 const accountMovements = accounts
   .map(acc => acc.movements)
@@ -242,3 +241,69 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currAccount.movements, !sortedState);
   sortedState = !sortedState;
 });
+
+const x = new Array(7);
+// console.log(x.fill(1));
+
+x.fill(1, 3, 5);
+
+//Output ==> array of 7 one's
+Array.from({ length: 7 }, () => 1);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelector('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  console.log(movementsUI);
+});
+
+const { deposit, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, curr) => {
+      // cur > 0 ? (sums.deposit += cur) : (sums.withdrawals += cur)
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposit: 0, withdrawals: 0 }
+  );
+
+const convertTitle = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'the', 'but', 'or', 'in', 'on', 'with'];
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+console.log(convertTitle('this is a nice title'));
+console.log(convertTitle('this is a LONG title'));
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+dogs.forEach(dog =>
+  Math.trunc((dog.recommendedFood = dog.weight ** 0.75 * 28))
+);
+
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(
+  `Sarah's dog is eating too ${
+    dogSarah.curFood > dogSarah.recommendedFood ? 'much' : 'little'
+  }`
+);
+
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
